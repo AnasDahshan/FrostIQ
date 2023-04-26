@@ -26,7 +26,7 @@ We welcome contributions from the community to improve FrostIQ. If you would lik
 4. Submit a pull request to the FrostIQ repository
 
 ## Credits
-FrostIQ was developed by Anas Dah as a project for learning Python and IoT. Special thanks to the following libraries:
+FrostIQ was developed by Anas Dahshan as a project for learning Python and IoT. Special thanks to the following libraries:
 - Adafruit CircuitPython
 - OpenAI API
 - NumPy
