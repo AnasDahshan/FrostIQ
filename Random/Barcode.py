@@ -1,4 +1,7 @@
 import requests
+import pandas as pd
+import random
+import openpyxl
 from bing_image_urls import bing_image_urls
 from pprint import pprint
 class BarcodeInput:
@@ -31,5 +34,18 @@ class BarcodeInput:
             print("Error retrieving product data for barcode:", barcode)
             return None
 
-print(BarcodeInput.scan(3017620422003))
+# Load the xlsx file into a DataFrame
+df = pd.read_excel('randomBarcodes.xlsx')
+
+# Get the number of rows in the DataFrame
+num_rows = df.shape[0]
+
+# Select 5 random row indices
+random_indices = random.sample(range(num_rows), 5)
+
+# Loop through the selected rows and print the barcode value in the first column
+for i in random_indices:
+    barcode = df.iloc[i, 0]
+    print(BarcodeInput.scan(barcode))
+
  
