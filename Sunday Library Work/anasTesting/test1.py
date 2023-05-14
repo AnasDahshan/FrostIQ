@@ -47,6 +47,10 @@ def main():
     while ret:
         if button.is_double_pressed():
             is_camera_on = not is_camera_on  # Toggle camera state
+            if is_camera_on:
+                print("Camera is on")
+            else:
+                print("Camera is off")
 
         if is_camera_on:
             ret, frame = camera.read()
