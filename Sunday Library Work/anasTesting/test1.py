@@ -16,20 +16,20 @@ class Button:
 
 def read_barcodes(frame):
     barcodes = pyzbar.decode(frame)
-    barcode_list = []
+    barcode_set = set()
     for barcode in barcodes:
         x, y, w, h = barcode.rect
         barcode_info = barcode.data.decode('utf-8')
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        font = cv2.FONT_HERSHEY_DUPLEX
-        cv2.putText(frame, barcode_info, (x + 6, y - 6), font, 2.0, (255, 255, 255), 1)
-        barcode_list.append(barcode_info)
-    
-    return frame, barcode_list
+        if barcode_info not in barcode_set:
+            barcode_set.add(barcode_info)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            font = cv2.FONT_HERSHEY_DUPLEX
+            cv2.putText(frame, barcode_info, (x + 6, y - 6), font, 2.0, (255, 255, 255), 1)
+    return frame, barcode_set
 
-def save_barcodes(barcode_list):
+def save_barcodes(barcode_set):
     with open("ScannedBarcodes.json", "a") as file:
-        for barcode in barcode_list:
+        for barcode in barcode_set:
             json.dump({"Barcode": barcode}, file)
             file.write("\n")
 
@@ -41,7 +41,7 @@ def main():
     is_camera_on = False  # Flag to keep track of camera state
     prev_button_on_state = False
     prev_button_off_state = False
-    scanned_barcodes = []  # List to store scanned barcode values
+    scanned_barcodes = set()  # Set to store scanned barcode values
 
     while ret:
         if not prev_button_on_state and buttonOn.is_pressed():
@@ -56,15 +56,15 @@ def main():
             print("Camera is off")
             if scanned_barcodes:
                 save_barcodes(scanned_barcodes)
-                scanned_barcodes = []
+                scanned_barcodes = set()
 
         prev_button_on_state = buttonOn.is_pressed()
         prev_button_off_state = buttonOff.is_pressed()
 
         if is_camera_on:
             ret, frame = camera.read()
-            frame, barcode_list = read_barcodes(frame)
-            scanned_barcodes.extend(barcode_list)
+            frame, barcode_set = read_barcodes(frame)
+            scanned_barcodes.update(barcode_set)
             cv2.imshow('Real Time Barcode Scanner', frame)
 
         if cv2.waitKey(1) & 0xFF == 27:
