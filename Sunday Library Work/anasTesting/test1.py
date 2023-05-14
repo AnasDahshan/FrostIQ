@@ -1,22 +1,23 @@
 import cv2
 from pyzbar import pyzbar
-from time import sleep
 import RPi.GPIO as GPIO
+import time
 
 class Button:
     def __init__(self, pin):
         self.pin = pin
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.pin, GPIO.IN)
+        GPIO.setup(self.pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     def is_pressed(self):
         if GPIO.input(self.pin) == GPIO.HIGH:
+            print("Button pressed!")
             return True
         return False
 
     def is_double_pressed(self):
         if self.is_pressed():
-            sleep(0.1)
+            time.sleep(0.1)
             if self.is_pressed():
                 return True
         return False
