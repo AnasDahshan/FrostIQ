@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Interface</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/FrostIQBG.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Set the body height to full viewport height */
+        }
+
+        .main-screen {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            background-color: #f5f4fa ;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Add box-shadow */
+            display: flex;
+        }
+
+        .sidebar {
+            width: 15%;
+            background: linear-gradient(to bottom, #6d9add, #8cc3f8);
+            border-radius: 20px 0px 0 20px;
+            display: flex;
+            flex-direction: column; /* Add this to stack the sidebar content vertically */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-img {
+            max-width: 80%; /* Adjust the size of the logo */
+            max-height: 80%; /* Adjust the size of the logo */
+        }
+
+        .element-screen {
+            flex-grow: 1;
+            background-color: #f5f4fa;
+            border-radius: 0px 20px 20px 0px;
+            display: flex;
+            flex-direction: column; /* Add this to stack the sections vertically */
+        }
+
+        .upper-section {
+            height: 15%;
+            border-radius: 0px 20px 0px 0px;
+            flex-grow: 1;
+            background-color: #fafafa;
+            overflow: auto; /* Add this to enable scrolling if needed */
+            display: flex;
+            align-items: flex-end;
+            padding: 0 20px; /* Add padding */
+            justify-content: space-between; /* Add this to evenly distribute the elements */
+        }
+
+        .time{
+            font-family: 'Poppins', sans-serif; /* Apply Poppins font to date and time */
+            margin-left: 10px; /* Change margin to separate date and time */
+            font-weight: 400;
+        }
+
+        .date-time {
+            font-family: 'Poppins', sans-serif; /* Apply Poppins font to date and time */
+            margin-left: 10px; /* Change margin to separate date and time */
+        }
+
+        .connection-icon {
+            font-family: 'Poppins', sans-serif; /* Apply Poppins font to date and time */
+            margin-left: 10px; /* Change margin to separate connection icon from text */
+        }
+
+        .lower-section {
+            padding: 40px;
+
+            background-color: #f5f4fa;
+            border-radius: 0px 0px 20px 0px;
+            height: 100%; /* Fill the remaining space */
+        }
+
+        .container {
+            display: grid;
+            height: 100%; /* Fill the remaining space */
+    
+        }
+
+        .container2 {
+            display: grid;
+            height: 100%; /* Fill the remaining space */
+            grid-template-columns: 50% 50%;
+            align-items: center;
+            justify-items: center;
+        }    
+         .container3 {
+            display: grid;
+            height: 100%; /* Fill the remaining space */
+            align-items: center;
+            grid-template-columns: auto auto auto;
+            justify-items: center;
+        }
+
+        .line2 {
+    border-bottom: 2px solid #d1dbe7;
+    margin: 0 0;
+}
+
+
+        .add,
+        .view,
+        .generate {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); /* Add box-shadow */
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: 20px;
+            transition: background-color 0.3s; 
+        }
+
+        .add:hover,
+        .view:hover,
+        .generate:hover {
+            background-color: #72a1e2; /* Change the background color when hovering */
+        }
+
+        .add img,
+        .view img,
+        .generate img {
+            width: 50px;
+            height: 50px;
+            transition: filter 0.3s;
+        }
+
+        .add:hover img,
+        .view:hover img,
+        .generate:hover img {
+            filter: invert(1); /* Invert the color to white on hover */
+        }
+      
+
+        .add span,
+        .view span,
+        .generate span {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            margin-top: 10px;
+            transition: color 0.3s;
+            color: black;
+        }
+
+        .add:hover span,
+        .view:hover span,
+        .generate:hover span {
+            color: white; /* Change the text color to white on hover */
+        }
+
+
+        .div1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .div2 {
+        }
+
+        .rectangle {
+            margin: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); /* Add box-shadow */
+            width: 60%;
+            height: 90%;
+            background-color: white;
+            align-self: center;
+            align-items: center;
+            justify-items: center;
+            border-radius: 20px;
+        }
+
+        .fridge {
+            padding-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+        }
+
+        .fridge h2 {
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif; /* Apply Poppins font to date and time */
+            font-weight: 400;
+        }
+
+        .fridge .icon-container img {
+            width: 100px;
+            height: 100px;
+        }
+
+        
+        .sensors {
+            height: 100%;
+            width: 100%;
+            display: flex;
+
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            margin-top: 20px;
+        }
+
+        .sensor-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .sensor-icon {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+        }
+
+        .sensor-label {
+            font-weight: bold;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif; /* Apply Poppins font to date and time */
+            font-weight: 300;
+            margin-right: 5px;
+        }
+
+        .sensor-reading {
+            font-family: 'Poppins', sans-serif; /* Apply Poppins font to date and time */
+            font-weight: 200;
+            font-size: 15px;
+        }
+
+        .line {
+            border-bottom: 1px solid #1111;
+            margin: 20px 0;
+        }
+
+        a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color:#0060B6; 
+    text-decoration:none; 
+    cursor:pointer;  
+}
+    </style>
+</head>
+<body>
+    <div class="main-screen">
+        <div class="sidebar">
+            <!-- Sidebar content -->
+            <img src="/static/FrostIQLogo2.png" alt="Logo" class="logo-img">
+        </div>
+
+        <div class="element-screen">
+            <div class="upper-section line2">
+                <div class="date-time">
+                    <div style="color: #bbb8cb;" id="date"></div>
+                    <div style="font-weight: 600; font-size: 20px;" id="time"></div>
+                </div>
+                <div class="connection">
+                    <i class="fa-solid fa-wifi" style="color: #11d216;"></i>
+                    <!-- <img src="/static/connection-icon.png" alt="Connection Icon" class="connection-icon"> -->
+                    <span>Connected</span>
+                </div>
+            </div>
+            <div class="lower-section">
+                <div class="container">
+                    <div class="div1">
+                        <div class="rectangle">
+                            <div class="container2">
+                                <div class="fridge">
+                                    <h2>Fridge</h2>
+                                    <div class="icon-container">
+                                        <img src="/static/fridge-icon.png" alt="Fridge Icon">
+                                    </div>
+                                </div>
+                                <div class="sensors">
+                                    <div class="sensor-item">
+                                        <img src="/static/temperature-icon.png" alt="Temperature Icon" class="sensor-icon">
+                                        <span class="sensor-label" style="color: tomato;">Temperature:</span>
+                                        <span class="sensor-reading" id="temperature"></span>
+                                    </div>
+                                    <div class="sensor-item">
+                                        <img src="/static/humidity-icon.png" alt="Humidity Icon" class="sensor-icon">
+                                        <span class="sensor-label" style="color:#6d9add">Humidity:</span>
+                                        <span class="sensor-reading" id="humidity"></span>
+                                    </div>
+                                    <div class="sensor-item">
+                                        <img src="/static/door-icon.png" alt="Door Icon" class="sensor-icon">
+                                        <span class="sensor-label" style="color: orange;">Door status:</span>
+                                        <span class="sensor-reading" id="door-status"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div2">
+                        <div class="container3">
+                            <a href="/view_items" ">
+                                <div class="view">
+                                    <img src="/static/view-icon.png" alt="View Icon">
+                                    <span>View Items</span>
+                                </div>
+                            </a>
+                            
+                            <div class="add">
+                                <img src="/static/add-icon.png" alt="Add Icon">
+                                <span>Add Items</span>
+                            </div>
+                            <a href="/view_recipes" ">
+                                <div class="generate">
+                                    <img src="/static/generate-icon.png" alt="Generate Icon">
+                                    <span>Generate Recipes</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code to update the date and time
+        setInterval(updateDateTime, 1000); // Update every second
+
+        function updateDateTime() {
+            const currentDate = new Date();
+            const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+            document.getElementById('date').textContent = currentDate.toLocaleDateString('en-US', options);
+            document.getElementById('time').textContent = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        }
+
+     // Function to fetch sensor data from the server
+     function fetchSensorData() {
+        // Make an AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/sensor_data', true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Parse the response JSON data
+                var data = JSON.parse(xhr.responseText);
+                // Update the temperature, humidity, and door status elements
+                document.getElementById('temperature').textContent = data.temperature + '°C';
+                document.getElementById('humidity').textContent = data.humidity + '%';
+                document.getElementById('door-status').textContent = data.door_status;
+            }
+        };
+        xhr.send();
+    }
+
+    // Update sensor data immediately and then every 5 seconds
+    fetchSensorData();
+    setInterval(fetchSensorData, 5000);
+    </script>
+</body>
+</html>

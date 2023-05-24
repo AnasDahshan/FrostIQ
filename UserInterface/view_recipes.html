@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Generate Recipes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/FrostIQBG.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+
+        .main-screen {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 90%;
+            height: 90%;
+            background-color: #f5f4fa;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+        }
+
+        .sidebar {
+            width: 15%;
+            background: linear-gradient(to bottom, #6d9add, #8cc3f8);
+            border-radius: 20px 0px 0 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+       .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo-img {
+            width: 95px; /* Adjust the size of the logo */
+            height: 95px; /* Adjust the size of the logo */
+            border-radius: 20%; /* Make it a circle */
+            background-color: white; /* Add background color to the square */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img img {
+            width: 60px; /* Adjust the size of the icon */
+            height: 60px; /* Adjust the size of the icon */
+        }
+
+        .view {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            color: white;
+            font-weight: 600;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .arrow-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .arrow-back img {
+            width: 100%;
+            height: 100%;
+            filter: invert(1);
+        }
+
+        .element-screen {
+            flex-grow: 1;
+            background-color: #f5f4fa;
+            border-radius: 0px 20px 20px 0px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .recipes-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .recipe-card {
+            width: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .recipe-card .content {
+            padding: 15px;
+        }
+
+        .recipe-card .content h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .recipe-card .content .info {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .recipe-card .content .info span {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+        }
+
+        .recipe-card .content .info span i {
+            font-family: 'Poppins', sans-serif;
+            margin-right: 5px;
+        }
+
+        .recipe-card .content .ingredients-title {
+            font-family: 'Poppins', sans-serif;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .recipe-card .content .ingredients-list {
+            font-family: 'Poppins', sans-serif;
+            margin: 5px 0;
+            padding-left: 15px;
+        }
+
+        .recipe-card .content .instructions-title {
+            font-family: 'Poppins', sans-serif;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .recipe-card .content .instructions-list {
+            font-family: 'Poppins', sans-serif;
+            margin: 5px 0;
+            padding-left: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main-screen">
+        <div class="sidebar">
+            <a href="{{ url_for('home') }}" class="arrow-back">
+                <img src="/static/arrow-back-icon.png" alt="Arrow Back Icon">
+            </a>
+            <div class="logo-container">
+                <div class="logo-img">
+                    <img src="/static/generate-icon.png" alt="Logo Icon">
+                </div>
+                <span class="view">View Items</span>
+            </div>
+            <form action="{{ url_for('view_recipes', generate='true') }}" method="post">
+                <button type="submit">Generate New Recipes</button>
+            </form>
+        </div>
+
+        <div class="element-screen">
+            <div class="container">
+                <h1>Recipes</h1>
+        
+                <div class="recipes-container">
+                    {% for recipe in recipes %}
+                    <div class="recipe-card">
+                        <img src="{{ recipe.image_url }}" alt="Recipe Image">
+                        <div class="content">
+                            <h3>{{ recipe.name }}</h3>
+                            <div class="info">
+                                <span>{{ recipe.type }}</span>
+                            </div>
+                            <div class="ingredients-title">Ingredients:</div>
+                            <ul class="ingredients-list">
+                                {% for ingredient in recipe.ingredients %}
+                                <li>{{ ingredient }}</li>
+                                {% endfor %}
+                            </ul>
+                            <div class="instructions-title">Instructions:</div>
+                            <ol class="instructions-list">
+                                {% for instruction in recipe.instructions %}
+                                <li>{{ instruction }}</li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
