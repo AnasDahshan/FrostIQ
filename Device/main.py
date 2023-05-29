@@ -78,6 +78,8 @@ def main():
     # Set sensor types and GPIO pins
     dht_sensor = DHTSensor(Adafruit_DHT.DHT11, 23)
     ldr_sensor = LDRSensor(24)
+    buzzer = Buzzer(18)  # Initialize the buzzer
+
 
     # Configure GPIO
     GPIO.setmode(GPIO.BCM)
@@ -88,7 +90,7 @@ def main():
 
     # Create and start sensor threads
     dht_thread = DHTSensorThread(dht_sensor, push_dht, is_camera_on)
-    ldr_thread = LDRSensorThread(ldr_sensor, push_ldr, is_camera_on)
+    ldr_thread = LDRSensorThread(ldr_sensor, push_ldr,buzzer, is_camera_on)
     dht_thread.start()
     ldr_thread.start()
 
@@ -116,7 +118,6 @@ def main():
                 image_path = os.path.join("images", f"image{time.time()}.jpg")
                 cv2.imwrite(image_path, frame)
                 print(f"Image saved: {image_path}")
-                buzzer = Buzzer(18)  # Initialize the buzzer
                 buzzer.Buzz()  # Buzz the buzzer
                 is_picture_taken = True
 
@@ -157,7 +158,7 @@ def main():
             break
 
         # Delay for a certain interval (e.g., 1 second) before reading again
-        #time.sleep(1)
+        time.sleep(1)
 
     camera.release()
     cv2.destroyAllWindows()
