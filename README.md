@@ -1,5 +1,9 @@
 # FrostIQ
 
+
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://www.veed.io/view/e5d7b59d-dbc6-4c69-b80c-c4a0c5287cff?sharingWidget=true&panel=share)
+
+
 FrostIQ is a small device designed for people who have old non-smart fridges and want to experience some of the features of a smart fridge without paying for a new one. Similar to how a Xiaomi Mi Box S Streaming or an Apple TV can turn a non-smart TV into a smart TV, FrostIQ can make a non-smart fridge smarter.
 
 In addition to providing smart fridge features, FrostIQ also generates recipes based on the products found in the fridge. This can be a helpful tool for those who struggle with meal planning or are looking for creative ways to use up ingredients.
